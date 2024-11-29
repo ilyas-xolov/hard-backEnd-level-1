@@ -1,0 +1,32 @@
+{
+  "name": "level-1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilyas-xolov/hard-backEnd-level-1.git"
+  },
+  "keywords": [
+    "Node.js",
+    "Express.js"
+  ],
+  "author": "Ilyas Xolov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ilyas-xolov/hard-backEnd-level-1/issues"
+  },
+  "homepage": "https://github.com/ilyas-xolov/hard-backEnd-level-1#readme",
+  "description": "BackEnd application",
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "uuid": "^11.0.3"
+  }
+}
