@@ -1,11 +1,11 @@
-import modelPost from "../models/post.model.js";
-import postService from "../server/post.service.js";
+import postService from "../service/post.service.js";
 import apiMsg from "../utils/api.message.util.js";
 class PostController {
 
     // ------------------------------ GET ALL ------------------------------ //
     async get(req,res){
         try {
+            console.log(req.requestTime);
             const list = await postService.get()    
             res.status(200).json(apiMsg.success(list))
         } catch (error) {
@@ -49,7 +49,7 @@ class PostController {
     }
     // ------------------------------ PUT ------------------------------ //
     async put(req,res){
-        const id = req.params.id ?? null;
+        const id = req.params.id;
         const {title,body} = req.body;
         if(!id){
             res.status(400).json(apiMsg.badRequest("invalid.param.id")); 
@@ -73,7 +73,7 @@ class PostController {
     }
     // ------------------------------ DELETE ------------------------------ //
     async delete(req,res){
-        const id = req.params.id ?? null;
+        const id = req.params.id;
         if(!id){
             res.status(400).json(apiMsg.badRequest("invalid.param.id")); 
         }
