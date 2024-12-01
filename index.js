@@ -1,64 +1,17 @@
 import express from 'express'
 import mongoose from 'mongoose';
-import modelPost from './models/post.model.js';
 import dotenv from 'dotenv';
+import fileUpload from 'express-fileupload';
+// ROUTES
+import routerPost from './routes/post.routes.js';
+
 dotenv.config();
 
 const app = express();
-const timestamp = new Date().toISOString();
-
-app.use(express.json())
-
-app.get('/', async (req,res)=>{
-    try {
-        const post = await modelPost.find();      
-            res.status(200).json({
-            status: 200,
-            message: null,
-            data: post,
-            timestamp
-        })
-    } catch (error) {
-        res.status(500).json({
-            status: 500,
-            message: 'Internal server error',
-            error: error.errors,
-            timestamp
-        })
-    }
-})
-
-app.post('/', async (req,res)=>{
-    const {title,body} = req.body
-
-    if(!title || !body){
-        res.status(400).json({
-            status: 400,
-            message: "invalid.params: title, body",
-            data: null,
-            timestamp
-        }) 
-        return
-    }
-
-    try {
-        const newPost = await modelPost.create({title,body});
-        res.status(200).json({
-            status: 200,
-            message: null,
-            data: newPost,
-            timestamp
-        })
-    } catch (error) {
-        res.status(500).json({
-            status: 500,
-            message: 'Internal server error',
-            error: error.errors,
-            timestamp
-        })
-    }
-})
-
+app.use(express.static('static'))
+app.use(fileUpload())
+app.use(express.json());
+app.use('/api/post',routerPost);
 
 
 
