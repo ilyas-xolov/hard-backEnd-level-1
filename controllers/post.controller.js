@@ -41,7 +41,6 @@ class PostController {
     
         try {
             const newPost = await postService.post(req.body,req.files.file);
-            console.log(req.files.file);
             res.status(200).json(apiMsg.success(newPost));
         } catch (error) {
             res.status(500).json(apiMsg.internalServer(error.errors));

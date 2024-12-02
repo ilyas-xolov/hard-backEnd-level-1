@@ -1,10 +1,12 @@
 import UserDto from '../dtos/user.dto.js';
 import modelUser from './../models/user.model.js';
 import bcrypt from 'bcrypt';
+import TokenService from './token.service.js'
+
+
 class AuthService {
     async register(email,password){
         const existUser = await modelUser.findOne({ email });
-        console.log(existUser);
 
         if(existUser){
             throw new Error(`With email "${email}" already registered`);
@@ -12,10 +14,11 @@ class AuthService {
 
         const hashPassword = await bcrypt.hash(password, 10);
         const user = await modelUser.create({ email, password:hashPassword })
-        
-         
         const userDTO = new UserDto(user);
-        return { userDTO } 
+        const tokens = TokenService.generateToken({...userDTO});
+
+        await TokenService.saveToken(userDTO.id, tokens.refreshToken);
+        return { user: userDTO, ...tokens }  
     }
 
     async activation(userId){
@@ -28,4 +31,4 @@ class AuthService {
     }
 }
 
-export default new AuthService;
+export default new AuthService();

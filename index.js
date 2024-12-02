@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import fileUpload from 'express-fileupload';
+import cookieParser from 'cookie-parser';
 
 // MIDDLEWARE
 import requestTime from './middlewares/request-time.js';
@@ -10,17 +11,24 @@ import requestTime from './middlewares/request-time.js';
 import routerPost from './routes/post.route.js';
 import routerUser from './routes/auth.route.js';
 
-dotenv.config();
 
+dotenv.config();
 const app = express();
+
+app.use(express.static('static'));
+app.use(cookieParser({}));
 app.use(requestTime);
-app.use(express.static('static'))
-app.use(fileUpload())
+app.use(fileUpload());
 app.use(express.json());
 
 // ROUTES
 app.use('/api/post',routerPost);
 app.use('/api/auth',routerUser);
+
+
+
+
+
 
 
 
