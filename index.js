@@ -1,6 +1,7 @@
+import 'dotenv/config';
+
 import express from 'express'
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
 import fileUpload from 'express-fileupload';
 import cookieParser from 'cookie-parser';
 
@@ -12,7 +13,6 @@ import routerPost from './routes/post.route.js';
 import routerUser from './routes/auth.route.js';
 
 
-dotenv.config();
 const app = express();
 
 app.use(express.static('static'));
